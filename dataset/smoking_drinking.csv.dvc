@@ -1,0 +1,5 @@
+outs:
+- md5: 6f17929e0c1e6d9c45e4c38c341e2c38
+  size: 45351555
+  hash: md5
+  path: smoking_drinking.csv

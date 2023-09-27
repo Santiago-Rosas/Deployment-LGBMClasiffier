@@ -1,0 +1,5 @@
+outs:
+- md5: bc277fb8d9073bdb9f5c7fbb825635a2
+  size: 60
+  hash: md5
+  path: column_equivalence.pk
