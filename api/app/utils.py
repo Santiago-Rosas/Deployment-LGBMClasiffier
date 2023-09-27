@@ -11,7 +11,7 @@ def get_model():
 
 def get_scaler():
     sacler_path = os.environ.get('SCALER_PATH','models/scaler.pk')
-    with open(scaler_path,'rb') as scaler_file:
+    with open(sacler_path,'rb') as scaler_file:
         scaler = load(BytesIO(scaler_file.read()))
     return scaler
 
