@@ -1,0 +1,4 @@
+['remote "dataset-storage"']
+    url = gs://model-dataset-storage/dataset
+['remote "model-storage"']
+    url = gs://model-dataset-storage/model
