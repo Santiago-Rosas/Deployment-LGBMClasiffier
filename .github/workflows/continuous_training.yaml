@@ -54,6 +54,7 @@ jobs:
           git add models/model.pk.dvc
           git add models/scaler.pk.dvc
           git add models/column_equivalence.pk.dvc
+          git add .
           git commit -m "Updating model serialization"
       - uses: ad-m/github-push-action@master
         with:
