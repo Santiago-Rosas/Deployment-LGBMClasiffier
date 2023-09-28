@@ -51,10 +51,10 @@ jobs:
         run: |
           git config --local user.email "santiagorosasplaza@gmail.com"
           git config --local user.name "github-actions[bot]"
-          git add models/model.pk
-          git add models/scaler.pk
-          git add models/column_equivalence.pk
-          git commit -m "Updating model serialization"
+          git add models/model.pk.dvc
+          git add models/scaler.pk.dvc
+          git add models/column_equivalence.pk.dvc
+          git commit --allow-empty  -m "Updating model serialization"
       - uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
