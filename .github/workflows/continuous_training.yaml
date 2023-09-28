@@ -1,0 +1,69 @@
+name: Continuous training 
+on:
+  push:
+    branches:
+    -
+  schedule:
+    - cron: '0 12 * * 2'  
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: Why running this?
+        required: false
+        default: running continuous training
+jobs:
+  continuous-training:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write 
+      issues: read
+      packages: none
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Training model
+        env:
+          SERVICE_ACCOUNT_KEY: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+        run: |
+           pip3 install virtualenv
+           virtualenv venv
+           source venv/bin/activate
+           pip install -r src/requirements.txt
+           export GOOGLE_APPLICATION_CREDENTIALS=$(python utilities/setter.py)
+           dvc pull models/model.pk -r model-storage
+           dvc pull models/scaler.pk -r model-storage
+           dvc pull models/column_equivalence.pk -r model-storage
+           dvc unprotect model/model.pk
+           dvc unprotect model/scaler.pk
+           dvc unprotect model/column_equivalence.pk
+           dvc repro -f 
+           echo "Training Completed"
+           dvc add model/model.pk
+           dvc add model/scaler.pk
+           dvc add model/column_equivalence.pk
+           echo "adding to dvc complet"
+           dvc push models/model.pk -r model-storage
+           dvc push models/scaler.pk -r model-storage
+           dvc push models/column_equivalence.pk -r model-storage
+           echo "pushing to cloud finish"
+      - name: Commit .dvc file changes
+        run: |
+          git config --local user.email "santiagorosasplaza@gmail.com"
+          git config --local user.name "github-actions[bot]"
+          git add model/model.pk.dvc
+          git add model/scaler.pk.dvc
+          git add model/column_equivalence.pk.dvc
+          git commit -m "Updating model serialization"
+      - uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }} 
+      - uses: iterative/setup-cml@v1
+      - name: Push metrics
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: | 
+          cat report.txt >> report.md   
+          echo '![](./prediction_behavior.png "Confusion Matrix")' >> report.md
+          cml comment create report.md
