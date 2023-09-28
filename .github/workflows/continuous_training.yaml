@@ -65,6 +65,5 @@ jobs:
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: | 
-          echo "Metrics" >> report.md  
-          echo '![](./prediction_behavior.png "Confusion Matrix")' >> report.md
+          report.txt >> report.md  
           cml comment create report.md
