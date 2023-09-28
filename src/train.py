@@ -105,7 +105,7 @@ logger.info('model hyerparameter tunning..')
 param={
           "max_depth": list(range(3,10)),
           "learning_rate":[0.001, 0.01,0.1],
-          "num_iterations":[10],
+          "num_iterations":[300],
           "num_leaves":[10,15,31,40,50,60,100],
           'verbose':[-1]
           }
