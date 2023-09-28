@@ -34,14 +34,14 @@ jobs:
            dvc pull models/model.pk -r model-storage
            dvc pull models/scaler.pk -r model-storage
            dvc pull models/column_equivalence.pk -r model-storage
-           dvc unprotect model/model.pk
-           dvc unprotect model/scaler.pk
-           dvc unprotect model/column_equivalence.pk
+           dvc unprotect models/model.pk
+           dvc unprotect models/scaler.pk
+           dvc unprotect models/column_equivalence.pk
            dvc repro -f 
            echo "Training Completed"
-           dvc add model/model.pk
-           dvc add model/scaler.pk
-           dvc add model/column_equivalence.pk
+           dvc add models/model.pk
+           dvc add models/scaler.pk
+           dvc add models/column_equivalence.pk
            echo "adding to dvc complet"
            dvc push models/model.pk -r model-storage
            dvc push models/scaler.pk -r model-storage
