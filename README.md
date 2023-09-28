@@ -1,4 +1,4 @@
-# Deployment of LGBM model 
+# Deployment of LGBM model with Continuous Training, Continuous Integration and Continuous Deployment
 
 In this project we use smoking_drinking.csv data and LGBM Classifier for Drinker and not Drinker prediction
 
