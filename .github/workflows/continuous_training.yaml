@@ -51,9 +51,9 @@ jobs:
         run: |
           git config --local user.email "santiagorosasplaza@gmail.com"
           git config --local user.name "github-actions[bot]"
-          git add model/model.pk.dvc
-          git add model/scaler.pk.dvc
-          git add model/column_equivalence.pk.dvc
+          git add models/model.pk.dvc
+          git add models/scaler.pk.dvc
+          git add models/column_equivalence.pk.dvc
           git commit -m "Updating model serialization"
       - uses: ad-m/github-push-action@master
         with:
