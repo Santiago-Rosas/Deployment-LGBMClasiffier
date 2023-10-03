@@ -1,5 +1,5 @@
 outs:
-- md5: cd25c6d57d680acc75b69b8896778b19
-  size: 70982
+- md5: ae148c383cf63f83ab7b0ed90343d7ca
+  size: 293142
   hash: md5
   path: model.pk
