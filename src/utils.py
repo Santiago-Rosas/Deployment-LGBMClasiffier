@@ -41,7 +41,7 @@ def get_confussion_matrix(y_real: pd.Series, y_pred: pd.Series) ->None:
     
  
 
-                     #####DETECTING OUT_LAYERS function 
+                     #####DETECTING OUTliers function 
 
 
 def outlier_thresholds(dataframe=pd.DataFrame, variable=str):
@@ -55,7 +55,7 @@ def outlier_thresholds(dataframe=pd.DataFrame, variable=str):
 ##suum all out layers per feature
 
 ##identifie the index of the out layer 
-def index_out_layers(dataframe, variable=str):
+def index_outliers(dataframe, variable=str):
     index=[]
     low_limit, up_limit = outlier_thresholds(dataframe, variable)
     index.append(list(np.where((dataframe[variable] < low_limit) | (dataframe[variable] > up_limit))[0]))
@@ -64,13 +64,13 @@ def index_out_layers(dataframe, variable=str):
 
 ###remove all out layers from a df 
 
-def remove_out_layers_from_df(dataframe, variable=list)->pd.DataFrame:
-    all_Out_layers=[]
+def remove_outliers_from_df(dataframe, variable=list)->pd.DataFrame:
+    all_ouliers=[]
     for i in variable:
-        index=index_out_layers(dataframe, variable)
+        index=index_outliers(dataframe, variable)
         for j in index:
-            if j not in all_Out_layers:
-                all_Out_layers.append(j)
-        return dataframe.drop(dataframe.index[all_Out_layers])  
+            if j not in all_ouliers:
+                all_ouliers.append(j)
+        return dataframe.drop(dataframe.index[all_ouliers])  
 
 

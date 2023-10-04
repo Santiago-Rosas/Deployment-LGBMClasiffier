@@ -1,4 +1,4 @@
-from utils import update_model, save_simple_metrics_report, get_confussion_matrix,remove_out_layers_from_df, update_columns_equivalence,update_scaler
+from utils import update_model, save_simple_metrics_report, get_confussion_matrix,remove_outliers_from_df, update_columns_equivalence,update_scaler
 from sklearn.model_selection import train_test_split, cross_validate, GridSearchCV, cross_validate
 from lightgbm import LGBMClassifier
 from sklearn.metrics import confusion_matrix, f1_score
@@ -43,7 +43,7 @@ for i,col in enumerate(df.columns):
         else:
             categorical_transformed.append(col)
 
-df_2=remove_out_layers_from_df(df,numeric_cols)
+df_2=remove_outliers_from_df(df,numeric_cols)
 df_2.drop(columns="LDL_chole",inplace=True)
 
 
@@ -64,7 +64,7 @@ for i, column in enumerate(df_2.dtypes):
                           ###Splitting and subsampling 
 
 
-logger.info('Spliting  and subsampling Data...')
+logger.info('Spliting  and undersampling Data...')
 
 X= df_2.drop(columns="DRK_YN")
 y=df_2["DRK_YN"]
